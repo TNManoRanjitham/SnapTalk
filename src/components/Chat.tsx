@@ -9,7 +9,10 @@ const Chat: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    sendMessage(message, recipient);
+    if(message !== '')
+    {
+      sendMessage(message, recipient);
+    }
     setMessage('');
   };
 

@@ -7,7 +7,7 @@ const userId = useQuery().get('userId') || ''; // Get userId from the query stri
 // Use the backend URL from the .env file
 const socket = io(process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001', { query: { userId } }); // Backend server URL
 
-interface SocketContextProps {
+export interface SocketContextProps {
   sendMessage: (message: string, recipient: string) => void;
   messages: Message[];
   userId: string;
@@ -17,7 +17,7 @@ interface SocketProviderProps {
   children: ReactNode;
 }
 
-interface Message {
+export interface Message {
   content: string;
   sender: string;
   recipient: string;
