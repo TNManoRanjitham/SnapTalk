@@ -45,32 +45,41 @@ To run the application using Docker, follow these steps:
 ### 1. **Ensure Docker is Installed**
 Ensure that Docker and Docker Compose are installed on your machine. You can download Docker Desktop from [Docker's official website](https://www.docker.com/products/docker-desktop). Docker Compose is included in Docker Desktop.
 
-### 2. **Run the Docker Setup Script**
-The `docker.sh` script helps to build and run the application using Docker. First, make sure the script is executable:
+For more information about Docker, check the [official Docker documentation](https://docs.docker.com/).
+
+
+### 2. **Build and Run the Application Using Docker**
+The docker.sh script helps to build and run the application using Docker. You can execute the script using the bash or sh command:
 
 ```bash
-chmod +x docker.sh
+bash docker.sh
 ```
-
-### 3. **Build and Run the Application Using Docker**
-Run the `docker.sh` script to build the Docker image and start the application:
-
+or 
 ```bash
-./docker.sh
+sh docker.sh
 ```
 
-### 4. **Access the Application**
+The `docker.sh` script is used to automate the build and run process for Docker. You can execute the script with either `bash docker.sh` or `sh docker.sh` based on your environment.
+
+### 3. **Access the Application**
 After successfully running the Docker container, open your browser and go to:
 
 ```bash
 http://localhost:3000
 ```
 
-### 6. **Stopping the Application**
+### 4. **Stopping the Application**
 To stop the application running inside Docker:
 
 ```bash
 docker-compose down
+```
+
+### 5. **Clean Up After Stopping the Application**
+To clean up Docker resources after the app is stopped:
+
+```bash
+docker system prune -f
 ```
 
 ## Recommendations
