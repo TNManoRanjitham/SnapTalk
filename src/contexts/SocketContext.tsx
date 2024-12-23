@@ -4,8 +4,8 @@ import io from 'socket.io-client';
 const useQuery = () => new URLSearchParams(window.location.search);
 const userId = useQuery().get('userId') || ''; // Get userId from the query string, default to '' if not present
 
-
-const socket = io('http://localhost:3000', { query: { userId } }); // Backend server URL
+// Use the backend URL from the .env file
+const socket = io(process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001', { query: { userId } }); // Backend server URL
 
 interface SocketContextProps {
   sendMessage: (message: string, recipient: string) => void;
