@@ -9,7 +9,7 @@ jest.doMock('../contexts/SocketContext', () => ({
     sendMessage: jest.fn(),
     messages: [
       { content: 'Hello', sender: 'user1', recipient: 'user2', timestamp: 'now' },
-    ] as Message[], // Use Message type for typing
+    ] as Message[],
     userId: 'user1',
   }),
 }));

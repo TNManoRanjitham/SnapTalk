@@ -12,7 +12,7 @@ This application is built using React with TypeScript, leveraging the modern JSX
 ## Setup Instructions
 1. **Clone the Repository:**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/TNManoRanjitham/SnapTalk.git
    ```
 2. **Install Dependencies:**
    Navigate to the project directory and run:
@@ -22,7 +22,7 @@ This application is built using React with TypeScript, leveraging the modern JSX
 3. **Start the Development Server:**
    Run the following command to start the application:
    ```bash
-   npm start
+   npm run start
    ```
 4. **Build for Production:**
    To create a production-ready build, use:
@@ -42,13 +42,3 @@ This application is built using React with TypeScript, leveraging the modern JSX
 - Use a TypeScript-compatible editor like VSCode with relevant plugins for optimal development.
 - Regularly update dependencies to prevent compatibility issues.
 - Follow best practices for modular component design and maintainability.
-
-## License
-This project is licensed under the [MIT License](LICENSE).
-
-## Contributions
-Contributions are welcome! Feel free to submit issues or pull requests to enhance the project.
-
----
-
-For any further questions or support, please contact [your contact information or GitHub profile].
