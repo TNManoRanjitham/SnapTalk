@@ -1,112 +1,154 @@
-/* Chat.css */
+/* General Reset and Styling */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  body {
-    background-color: #f4f7fc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
-  }
-  
-  .chat-container {
-    background-color: #fff;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  input, textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    pointer-events: auto; /* Make sure the input is interactive */
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
 
-  input {
-    margin-bottom: 10px;
-  }
-  
-  textarea {
-    resize: vertical;
-    min-height: 80px;
-    margin-bottom: 15px;
-    z-index: 1; /* Ensure the textarea is above other elements */
-  }
-  
-  button {
-    padding: 12px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  div.messages {
-    margin-top: 20px;
-    max-height: 300px;
-    overflow-y: auto;
-  }
-  
-  .messages p {
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 8px;
-    font-size: 14px;
-    line-height: 1.4;
-    word-wrap: break-word;
-    max-width: 80%;
-  }
-  
-  .messages::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .messages::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 3px;
-  }
-  
-  .messages::-webkit-scrollbar-track {
-    background-color: #f0f0f0;
-  }
+body {
+  background-color: #f4f7fc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+}
 
-  /* Styles for sent messages (from the user) */
-  .sent {
-    background-color: #4CAF50;
-    color: white;
-    text-align: right;
-    border-radius: 10px 10px 0 10px;
-    margin-left: auto;
-    max-width: 80%;
-  }
-  
-  /* Styles for received messages (from the other user) */
-  .received {
-    background-color: #e9f5f3;
-    color: black;
-    text-align: left;
-    border-radius: 10px 10px 10px 0;
-    margin-right: auto;
-    max-width: 80%;
-  }  
+/* Chat Container */
+.chat-container {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Input Fields */
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  margin-bottom: 15px;
+  z-index: 1;
+}
+
+/* Button Styling */
+button {
+  padding: 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Messages Container */
+div.messages {
+  margin-top: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+/* Messages Styling */
+.messages p {
+  padding: 10px 15px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+/* Sent Messages */
+.sent {
+  background-color: #4CAF50;
+  color: white;
+  text-align: right;
+  border-radius: 15px 15px 0 15px;
+  margin-left: auto;
+}
+
+/* Received Messages */
+.received {
+  background-color: #e9f5f3;
+  color: #333;
+  text-align: left;
+  border-radius: 15px 15px 15px 0;
+  margin-right: auto;
+}
+
+/* Scrollbar Styling */
+.messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+}
+
+/* Header Styling */
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-header h2 {
+  font-size: 20px;
+  color: #333;
+}
+
+.logout-button {
+  background-color: #ff4b4b;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #e04444;
+}

@@ -1,20 +1,6 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import io from 'socket.io-client';
 
-
-// Custom hook to extract the query parameter
-const useUserIdFromQuery = () => {
-  const [userId, setUserId] = useState('');
-
-  useEffect(() => {
-    // Get userId from the query string, default to '' if not present
-    const params = new URLSearchParams(window.location.search);
-    setUserId(params.get('userId') || '');
-  }, []);
-
-  return userId;
-};
-
 export interface SocketContextProps {
   sendMessage: (message: string, recipient: string) => void;
   messages: Message[];
@@ -35,37 +21,53 @@ export interface Message {
 export const SocketContext = createContext<SocketContextProps | undefined>(undefined);
 
 export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
-  const userId = useUserIdFromQuery();
+  const [userId, setUserId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [socket, setSocket] = useState<any>(null);
-  
-   // Initialize socket connection when userId is available
-   useEffect(() => {
+
+  // Retrieve userId from localStorage
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      setUserId(storedUserId);
+    } else {
+      console.warn('User ID not found in localStorage.');
+    }
+  }, []);
+
+  // Initialize socket connection when userId is available
+  useEffect(() => {
     if (!userId) return;
 
     const socketInstance = io(process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001', {
       query: { userId },
     });
-    
+
     if (socketInstance) {
       setSocket(socketInstance);
-  
+
       socketInstance.on('receive_message', (message: Message) => {
         setMessages((prevMessages) => [...prevMessages, message]);
       });
     }
 
     return () => {
-      socketInstance.disconnect();
+      if (socketInstance) {
+        socketInstance.disconnect();
+      }
     };
   }, [userId]);
 
-  const sendMessage = (message: string,  recipient: string) => {
-    socket.emit('send_message', { content: message, sender: userId, recipient });
+  const sendMessage = (message: string, recipient: string) => {
+    if (socket) {
+      socket.emit('send_message', { content: message, sender: userId, recipient });
+    } else {
+      console.error('Socket connection not established.');
+    }
   };
 
   return (
-    <SocketContext.Provider value={{ sendMessage, messages, userId }}>
+    <SocketContext.Provider value={{ sendMessage, messages, userId: userId || '' }}>
       {children}
     </SocketContext.Provider>
   );
