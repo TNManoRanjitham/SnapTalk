@@ -29,7 +29,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
     if (storedUserId) {
-      setUserId(storedUserId);
+      setUserId(storedUserId);  // Set userId from localStorage if available
     } else {
       console.warn('User ID not found in localStorage.');
     }

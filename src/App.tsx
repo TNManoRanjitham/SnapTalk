@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import './App.css';
-import { SocketProvider } from './contexts/SocketContext';
-import { AuthProvider, AuthContext } from './contexts/AuthContext';
+import { AuthContext } from './contexts/AuthContext';
 import Chat from './components/Chat';
 import Logout from './components/Logout';
 import { useNavigate } from 'react-router-dom';
@@ -22,8 +21,6 @@ const App: React.FC = () => {
   };
 
   return (
-    <AuthProvider>
-      <SocketProvider>
         <div className="App">
           <header className="App-header">
             {user ? (
@@ -47,8 +44,6 @@ const App: React.FC = () => {
             </p>
           )}
         </div>
-      </SocketProvider>
-    </AuthProvider>
   );
 };
 

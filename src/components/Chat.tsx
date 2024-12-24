@@ -57,7 +57,7 @@ const Chat: React.FC = () => {
         Send
       </button>
 
-      <div className="messages">
+      <div className={messages.length === 0 ? 'no-messages' : 'messages'}>
         {messages.map((msg, index) => (
           <p
             key={index}

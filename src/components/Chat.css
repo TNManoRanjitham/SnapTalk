@@ -29,7 +29,8 @@ body {
 }
 
 /* Input Fields */
-input, textarea {
+input,
+textarea {
   width: 100%;
   padding: 12px;
   border-radius: 6px;
@@ -38,7 +39,8 @@ input, textarea {
   transition: border-color 0.3s ease;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   border-color: #4CAF50;
   outline: none;
 }
@@ -47,7 +49,6 @@ textarea {
   resize: vertical;
   min-height: 100px;
   margin-bottom: 15px;
-  z-index: 1;
 }
 
 /* Button Styling */
@@ -126,16 +127,30 @@ div.messages {
   background-color: #f0f0f0;
 }
 
+/* When there are no messages, hide the border and padding */
+.no-messages {
+  border: none;   /* Remove border */
+  padding: 0;      /* Remove padding */
+  background-color: transparent;  /* Make background transparent */
+}
+
 /* Header Styling */
 .chat-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  gap: 10px; /* Add some space between elements */
 }
 
 .chat-header h2 {
   font-size: 20px;
   color: #333;
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  flex-grow: 1; /* Allow the title to take as much space as possible */
+  margin: 0;
 }
 
 .logout-button {

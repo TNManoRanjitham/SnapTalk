@@ -1,226 +1,115 @@
-/* App.css */
-/* Fix for clickable login message */
-.login-message {
-  font-size: 1.2rem;
-  color: #444;
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  z-index: 1; /* Ensure it's above other content */
-}
-
-.login-message:hover {
-  color: #0044cc; /* Highlight when hovered */
-  text-decoration: underline;
-}
-
-/* Ensure no other elements are blocking this */
-.App {
-  position: relative; /* Ensures the container itself isn't obstructing */
-}
-
 /* Global Styles */
-body {
-  font-family: 'Arial', sans-serif;
+* {
   margin: 0;
   padding: 0;
-  background-color: #f0f4f8;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f5f5;
   color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .App {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
-}
-
-h1, h2 {
-  font-family: 'Roboto', sans-serif;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 20px;
 }
 
 /* Header Styles */
 .App-header {
-  background-color: #0044cc;
+  background-color: #0078d4;
   color: white;
-  padding: 20px;
+  padding: 40px 20px;
+  border-radius: 10px 10px 0 0;
   width: 100%;
-  text-align: center;
-  border-bottom: 2px solid #ddd;
 }
 
 .App-header h1 {
-  font-size: 2.5rem;
-  margin: 0;
-  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
 
 .App-header p {
   font-size: 1.1rem;
-  margin: 10px 0;
+  font-weight: 300;
 }
 
 .login-message {
   font-size: 1.2rem;
-  color: #444;
-  padding: 20px;
-  text-align: center;
+  color: #0078d4;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
-/* Chat Container */
+.login-message:hover {
+  color: #005a9e;
+}
+
+/* Chat Container Styles */
 .chat-container {
   width: 100%;
-  max-width: 850px;
-  margin: 20px auto;
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: left;
-}
-
-.chat-container h2 {
-  font-size: 1.6rem;
-  color: #0044cc;
-  margin-bottom: 20px;
-  font-weight: 600;
-}
-
-.chat-box {
-  height: 400px;
+  margin-top: 30px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-height: 300px;
+  max-height: 500px;
   overflow-y: auto;
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: #fafafa;
-  border-radius: 8px;
-  border: 1px solid #ddd;
 }
 
-.chat-box .message {
-  margin-bottom: 12px;
-  padding: 10px;
-  background-color: #e1f5fe;
-  border-radius: 5px;
-  color: #555;
-  font-size: 1.1rem;
-}
-
-.chat-input {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.chat-input input {
-  width: 80%;
-  padding: 12px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
-}
-
-.chat-input input:focus {
-  border-color: #0044cc;
-}
-
-.chat-input button {
-  padding: 12px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  background-color: #0044cc;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-}
-
-.chat-input button:hover {
-  background-color: #0033a0;
-}
-
+/* Button Styles */
 button {
-  background-color: #ff6f61;
+  background-color: #0078d4;
   color: white;
   border: none;
-  padding: 12px 24px;
-  font-size: 1.1rem;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
-  border-radius: 8px;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #e55b4f;
-}
-
-/* Styling for Logout Button */
-.logout-button {
-  background-color: #ff6f61;
-  color: white;
-  border: none;
-  padding: 12px 24px;
   font-size: 1rem;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
   margin-top: 20px;
 }
 
-.logout-button:hover {
-  background-color: #e55b4f;
+button:hover {
+  background-color: #005a9e;
 }
 
-/* Styling for Welcome Text */
-.welcome-message {
-  font-size: 1.5rem;
-  color: #0044cc;
-  font-weight: 600;
-  margin-bottom: 20px;
+/* Logout Button Styles */
+.Logout-button {
+  background-color: #f44336;
 }
 
-.welcome-text {
-  font-size: 1.2rem;
-  color: #555;
-  margin-bottom: 30px;
+.Logout-button:hover {
+  background-color: #d32f2f;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-  .App {
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .App-header {
+    padding: 20px 10px;
+  }
+
+  .chat-container {
     padding: 20px;
+    margin-top: 20px;
   }
 
-  .chat-container {
-    width: 100%;
-    padding: 15px;
+  .login-message {
+    font-size: 1rem;
   }
 
-  .chat-input input {
-    width: 75%;
-  }
-
-  .chat-input button {
-    width: 20%;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .App {
-    padding: 10px;
-  }
-
-  .chat-container {
-    width: 100%;
-    padding: 10px;
-  }
-
-  .chat-input input {
-    width: 70%;
-  }
-
-  .chat-input button {
-    width: 25%;
+  .App-header h1 {
+    font-size: 1.5rem;
   }
 }
