@@ -35,6 +35,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const handleLogout = async () => {
     try {
       localStorage.removeItem('userId');  // Clear user ID from localStorage
+      localStorage.removeItem('token'); 
       setUser(null);
     } catch (error) {
       console.error('Logout error:', error);

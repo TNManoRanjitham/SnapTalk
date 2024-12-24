@@ -1,0 +1,58 @@
+/* General Styling for UserSelection */
+.user-selection-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    padding: 100px;
+    width: 100%;
+    max-width: 700px;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Title */
+  .user-selection-container h2 {
+    font-size: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* User List */
+  .user-list {
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    margin: '10px 0'
+  }
+  
+  .user-button {
+    padding: 12px;
+    background-color: #f1f1f1;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: left;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    width: 100%;
+  }
+  
+  .user-button:hover {
+    background-color: #ddd;
+  }
+  
+  .user-button.active {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    border-color: #4CAF50;
+  }
+  
+  /* Selected User Text */
+  .selected-user {
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+  }
+  

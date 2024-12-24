@@ -1,13 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { SocketContext } from '../../contexts/SocketContext';
-import { useNavigate } from 'react-router-dom'; // Assuming you're using react-router
+import { useParams, useNavigate } from 'react-router-dom'; // Assuming you're using react-router
 import './Chat.css'; // Import your CSS file here
 
 const Chat: React.FC = () => {
+  const { username } = useParams(); // Get the 'username' from the URL params
   const socketContext = useContext(SocketContext);
   const navigate = useNavigate(); // For navigation
   const [message, setMessage] = useState('');
-  const [recipient, setRecipient] = useState('');
+  const [recipient, setRecipient] = useState(username || '');
 
   // Check if context is available
   if (!socketContext) {
@@ -33,7 +34,7 @@ const Chat: React.FC = () => {
   return (
     <div className="chat-container">
       <div className="chat-header">
-        <h2>Welcome, {userId}</h2>
+        <h2>Chat with {recipient}</h2>
         <button onClick={handleLogout} className="logout-button">
           Logout
         </button>
@@ -44,6 +45,7 @@ const Chat: React.FC = () => {
         placeholder="Recipient"
         value={recipient}
         onChange={(e) => setRecipient(e.target.value)}
+        disabled // Disable the recipient input since it's taken from the URL
       />
       <textarea
         placeholder="Type a message..."
