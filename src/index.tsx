@@ -15,6 +15,24 @@ const Header = () => (
   </header>
 );
 
+// Component to check if the user is logged in
+const RedirectIfLoggedIn = () => {
+  const authContext = useContext(AuthContext);
+
+  if (!authContext) {
+    return <div>Loading...</div>;
+  }
+
+  const { user } = authContext;
+
+  // Redirect based on user's authentication status
+  if (user) {
+    return <Navigate to="/chat" replace />;
+  }
+
+  return <Navigate to="/login" replace />;
+};
+
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const authContext = useContext(AuthContext);
@@ -43,7 +61,7 @@ root.render(
     <Router>
       <Header /> {/* Include the SnapTalk header at the top */}
       <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<RedirectIfLoggedIn />} />
         <Route path="/login" element={<Login />} />
         <Route
           path="/chat"

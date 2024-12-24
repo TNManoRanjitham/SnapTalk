@@ -2,8 +2,11 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';  // Access the AuthContext
 import './Login.css'; // Import CSS for styling
+import useRedirectIfLoggedIn from '../hooks/useRedirectIfLoggedIn';
 
 const Login: React.FC = () => {
+  useRedirectIfLoggedIn(); 
+
   // Always call hooks at the top of the component
   const authContext = useContext(AuthContext)!;
   const [username, setUsername] = useState('');
@@ -20,7 +23,6 @@ const Login: React.FC = () => {
   const LoginClick = async () => {
     setError('');  // Clear previous error messages
     try {
-      console.log("Login in Login.tsx $$$$");
       // Attempt login using context
       await authContext.handleLogin(username, password);
       navigate('/chat');  // Redirect to the chat page
