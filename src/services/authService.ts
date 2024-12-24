@@ -20,6 +20,9 @@ export const login = async (username: string, password: string) => {
   try {
     const response = await axios.post(`${API_URL}/login`, { username, password });
     localStorage.setItem('userId', username); // Store userId in localStorage
+    const { access_token } = response.data;
+    // Store the JWT token in localStorage
+    localStorage.setItem('token', access_token);
     return response.data;
   } catch (error) {
     handleError(error);

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { SocketContext } from '../contexts/SocketContext';
+import { SocketContext } from '../../contexts/SocketContext';
 import { useNavigate } from 'react-router-dom'; // Assuming you're using react-router
 import './Chat.css'; // Import your CSS file here
 

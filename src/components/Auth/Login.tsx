@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';  // Access the AuthContext
+import { AuthContext } from '../../contexts/AuthContext';  // Access the AuthContext
 import './Login.css'; // Import CSS for styling
-import useRedirectIfLoggedIn from '../hooks/useRedirectIfLoggedIn';
+import useRedirectIfLoggedIn from '../../hooks/useRedirectIfLoggedIn';
 
 const Login: React.FC = () => {
   useRedirectIfLoggedIn(); 
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
     try {
       // Attempt login using context
       await authContext.handleLogin(username, password);
-      navigate('/chat');  // Redirect to the chat page
+      navigate('/user');  // Redirect to the chat page
 
     } catch (err) {
       setError((err as Error).message || 'Invalid username or password.');

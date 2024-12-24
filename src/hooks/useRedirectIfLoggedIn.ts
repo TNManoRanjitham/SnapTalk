@@ -13,7 +13,7 @@ const useRedirectIfLoggedIn = () => {
     const { user } = authContext;
 
     if (user && localStorage.getItem('userId')) {
-      navigate('/chat', { replace: true });
+      navigate('/user', { replace: true });
     }
   }, [authContext, navigate]);
 };

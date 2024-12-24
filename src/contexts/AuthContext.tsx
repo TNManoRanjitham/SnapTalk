@@ -8,8 +8,8 @@ export interface AuthContextProps {
 }
 
 interface AuthProviderProps {
-    children: ReactNode;
-  }
+  children: ReactNode;
+}
 
 export const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
@@ -21,10 +21,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const handleLogin = async (username: string, password: string) => {
     try {
       const response = await login(username, password);
-      console.log(response);
       if (response && response.message) {
-        // Store the user ID in localStorage
-        localStorage.setItem('userId', username);  // Or use response.userId if it comes from the backend
         setUser({ userId: username });
       } else {
         console.error('Login failed', response.message);

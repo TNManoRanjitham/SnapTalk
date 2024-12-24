@@ -6,4 +6,6 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=development
+      - REACT_APP_BACKEND_URL=http://localhost:3001
+      - PORT=3000
+      - SKIP_PREFLIGHT_CHECK=true

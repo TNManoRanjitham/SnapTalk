@@ -52,11 +52,11 @@ For more information about Docker, check the [official Docker documentation](htt
 The docker.sh script helps to build and run the application using Docker. You can execute the script using the bash or sh command:
 
 ```bash
-bash docker.sh
+bash build-docker.sh
 ```
 or 
 ```bash
-sh docker.sh
+sh build-docker.sh
 ```
 
 The `docker.sh` script is used to automate the build and run process for Docker. You can execute the script with either `bash docker.sh` or `sh docker.sh` based on your environment.

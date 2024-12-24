@@ -1,49 +1,69 @@
-import React, { useContext } from 'react';
-import './App.css';
+import React, { useState, useEffect, useContext } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Login from './components/Auth/Login';
+import Chat from './components/Chat/Chat';
+import UserSelection from './components/UserSelection/UserSelection';
+import { getUsers } from './services/userService';
 import { AuthContext } from './contexts/AuthContext';
-import Chat from './components/Chat';
-import Logout from './components/Logout';
-import { useNavigate } from 'react-router-dom';
+import { SocketProvider } from './contexts/SocketContext';
 
-const App: React.FC = () => {
+const App = () => {
+  const [users, setUsers] = useState<{ _id: string; username: string }[]>([]);
   const authContext = useContext(AuthContext);
-  const navigate = useNavigate();
+  const user = authContext?.user;
+  // Fetch users only if the user is logged in
+  useEffect(() => {
+    const fetchUsers = async () => {
+      if (user) {
+        const fetchedUsers = await getUsers();
+        setUsers(fetchedUsers || []);
+      }
+    };
 
-  // Ensure the context is defined before accessing its values
-  if (!authContext) {
-    return <div>Loading...</div>;  // Show loading until AuthContext is available
-  }
+    fetchUsers();
+  }, [user]); // Runs whenever the user is updated
 
-  const { user } = authContext;
+  const handleSelectUser = (username: string) => {
+    window.location.href = `/chat/${username}`; // Navigate to the selected user's chat
+  };
 
-  const handleLoginClick = (): void => {
-    navigate('/login');
+  const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+    if (!user) {
+      return <Navigate to="/login" replace />;
+    }
+
+    return <SocketProvider>{children}</SocketProvider>;
   };
 
   return (
-        <div className="App">
-          <header className="App-header">
-            {user ? (
-              <>
-                <h1>Welcome to SnapTalk, {user.userId}!</h1>
-                <p>Start chatting with your friends now.</p>
-                <Logout />
-              </>
-            ) : (
-              <p>Please log in to continue.</p>
-            )}
-          </header>
-
-          {user ? (
-            <div className="chat-container">
-              <Chat />
-            </div>
+    <Routes>
+      <Route path="/" element={<Navigate to={user ? "/user" : "/login"} />} />
+      <Route path="/login" element={<Login />} />
+      <Route
+        path="/user"
+        element={
+          user ? (
+            <ProtectedRoute>
+              <UserSelection users={users} onSelectUser={handleSelectUser} />
+            </ProtectedRoute>
           ) : (
-            <p className="login-message" onClick={handleLoginClick}>
-              Please log in to continue.
-            </p>
-          )}
-        </div>
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/chat/:username"
+        element={
+          user ? (
+            <ProtectedRoute>
+              <Chat />
+            </ProtectedRoute>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+    </Routes>
   );
 };
 

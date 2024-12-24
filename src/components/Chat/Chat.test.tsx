@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { SocketContext, Message } from '../contexts/SocketContext'; // Import context and types
+import { SocketContext, Message } from '../../contexts/SocketContext'; // Import context and types
 import Chat from './Chat'; // Import the Chat component
 
 // Mocking SocketContext
