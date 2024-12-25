@@ -16,13 +16,19 @@ export const signup = async (username: string, password: string) => {
   }
 };
 
-export const login = async (username: string, password: string) => {
+export const login = async (username: string, password: string, deviceId: string, deviceType: string) => {
   try {
-    const response = await axios.post(`${API_URL}/login`, { username, password });
+    const response = await axios.post(`${API_URL}/login`, { username, password }, {
+      headers: {
+        'Device-Id': deviceId,
+        'Device-Type': deviceType,
+      },
+    });
     localStorage.setItem('userId', username); // Store userId in localStorage
-    const { access_token } = response.data;
+    const { access_token, registeredDeviceId } = response.data;
     // Store the JWT token in localStorage
     localStorage.setItem('token', access_token);
+    localStorage.setItem('deviceId', registeredDeviceId);
     return response.data;
   } catch (error) {
     handleError(error);

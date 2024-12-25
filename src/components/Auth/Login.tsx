@@ -14,18 +14,15 @@ const Login: React.FC = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Check if context is available
   if (!authContext) {
     return <p>Loading...</p>;
   }
 
-  // Handle login when the button is clicked
   const LoginClick = async () => {
-    setError('');  // Clear previous error messages
+    setError(''); 
     try {
-      // Attempt login using context
       await authContext.handleLogin(username, password);
-      navigate('/user');  // Redirect to the chat page
+      navigate('/user');  
 
     } catch (err) {
       setError((err as Error).message || 'Invalid username or password.');

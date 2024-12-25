@@ -2,16 +2,18 @@ import React, { useState, useContext } from 'react';
 import { SocketContext } from '../../contexts/SocketContext';
 import { useParams, useNavigate } from 'react-router-dom'; // Assuming you're using react-router
 import './Chat.css'; // Import your CSS file here
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Chat: React.FC = () => {
   const { username } = useParams(); // Get the 'username' from the URL params
   const socketContext = useContext(SocketContext);
+  const authContext = useContext(AuthContext);
   const navigate = useNavigate(); // For navigation
   const [message, setMessage] = useState('');
   const [recipient, setRecipient] = useState(username || '');
 
   // Check if context is available
-  if (!socketContext) {
+  if (!socketContext || !authContext) {
     return <p>Loading...</p>;
   }
 
@@ -27,7 +29,7 @@ const Chat: React.FC = () => {
 
   const handleLogout = () => {
     // Perform any logout logic here, such as clearing tokens or session storage
-    localStorage.removeItem('userId'); // Example: Clear stored userId
+    authContext.handleLogout();
     navigate('/login'); // Redirect to login page
   };
 

@@ -17,10 +17,24 @@ export const AuthContext = createContext<AuthContextProps | undefined>(undefined
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<{ userId: string | null; } | null>(null);
 
+  // Function to determine device type (mobile or web)
+  const getDeviceType = () => {
+    const userAgent = navigator.userAgent.toLowerCase();
+    if (/android|iphone|ipod|windows phone/i.test(userAgent) || window.innerWidth <= 768) {
+      return 'mobile';
+    }
+    return 'web';
+  };
+
+
   // Handle login logic
   const handleLogin = async (username: string, password: string) => {
     try {
-      const response = await login(username, password);
+      const deviceId = localStorage.getItem('deviceId') || ''; // Fetch or generate deviceId
+      const deviceType = getDeviceType();
+      console.log(deviceType);
+
+      const response = await login(username, password, deviceId , deviceType);
       if (response && response.message) {
         setUser({ userId: username });
       } else {
@@ -30,6 +44,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.error('Login error:', error);
     }
   };
+
 
   // Handle logout logic
   const handleLogout = async () => {
