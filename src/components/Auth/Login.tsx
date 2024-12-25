@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';  // Access the AuthContext
 import './Login.css'; // Import CSS for styling
 import useRedirectIfLoggedIn from '../../hooks/useRedirectIfLoggedIn';
@@ -13,25 +13,35 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+
+  let isSignup = location.state?.isSignup ?? false;
 
   if (!authContext) {
     return <p>Loading...</p>;
   }
 
-  const LoginClick = async () => {
-    setError(''); 
+  const handleAuth = async () => {
+    setError(''); // Reset error on new submit attempt
     try {
-      await authContext.handleLogin(username, password);
-      navigate('/user');  
-
+      if (isSignup) {
+        // Handle signup
+        await authContext.handleSignup(username, password); // Assuming handleSignup method is implemented
+        isSignup = false;
+        navigate('/login');
+      } else {
+        // Handle login
+        await authContext.handleLogin(username, password);
+        navigate('/user');
+      }
     } catch (err) {
-      setError((err as Error).message || 'Invalid username or password.');
+      setError((err as Error).message || 'Invalid credentials. Please try again.');
     }
   };
 
   return (
     <div className="login-container">
-      <h2>Login</h2>
+      <h2>{isSignup ? 'Sign Up' : 'Login'}</h2>
       {error && <p className="error">{error}</p>}  {/* Display error message */}
       <div className="login-form">
         <div className="form-group">
@@ -59,9 +69,9 @@ const Login: React.FC = () => {
         <button
           type="button"
           className="login-button"
-          onClick={LoginClick}  // Trigger login on button click
+          onClick={handleAuth}  // Trigger login on button click
         >
-          Login
+         {isSignup ? 'Sign Up' : 'Login'}
         </button>
       </div>
     </div>

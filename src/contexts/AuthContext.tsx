@@ -1,9 +1,10 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
-import { login } from '../services/authService';
+import { login, signup } from '../services/authService';
 
 export interface AuthContextProps {
   user: { userId: string | null; username?: string } | null;
   handleLogin: (username: string, password: string) => void;
+  handleSignup: (username: string, password: string) => void;
   handleLogout: () => void;
 }
 
@@ -45,6 +46,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const handleSignup = async (username: string, password: string) => {
+    try {
+       await signup(username, password);
+    } catch (error) {
+      console.error('Signup error:', error);
+    }
+  };
+
 
   // Handle logout logic
   const handleLogout = async () => {
@@ -66,7 +75,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, handleLogin, handleLogout }}>
+    <AuthContext.Provider value={{ user, handleLogin, handleLogout, handleSignup }}>
       {children}
     </AuthContext.Provider>
   );

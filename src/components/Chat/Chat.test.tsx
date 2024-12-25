@@ -24,7 +24,7 @@ describe('Chat Component', () => {
         fetchUndeliveredMessages: jest.fn(),
         sendMessage: sendMessageMock,
         messages: [
-          { content: 'Hello', sender: 'user1', recipient: 'user2', timestamp: 'now' },
+          { content: 'Hello', sender: 'user1', recipient: 'user2', timestamp: 'now' ,_id : "676c4b3b9d2933de45edcd8c" },
         ],
         userId: 'user1',
       }}>
@@ -55,8 +55,8 @@ describe('Chat Component', () => {
 
   test('should display multiple messages', async () => {
     const messages = [
-      { content: 'Hello', sender: 'user1', recipient: 'user2', timestamp: 'now' },
-      { content: 'Hi!', sender: 'user2', recipient: 'user1', timestamp: 'later' },
+      { content: 'Hello', sender: 'user1', recipient: 'user2', timestamp: 'now', _id : "676c4b3b9da933dee5edcd8c" },
+      { content: 'Hi!', sender: 'user2', recipient: 'user1', timestamp: 'later' , _id : "676c4b3b9d2933dee5edcd8c"},
     ];
 
     render(

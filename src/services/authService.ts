@@ -10,6 +10,7 @@ interface ErrorResponse {
 export const signup = async (username: string, password: string) => {
   try {
     const response = await axios.post(`${API_URL}/signup`, { username, password });
+    console.log(response.data);
     return response.data; // You can define the type of response if needed.
   } catch (error) {
     handleError(error);

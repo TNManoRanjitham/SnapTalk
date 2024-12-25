@@ -36,7 +36,6 @@
   .header-right {
     cursor: pointer;
     padding: 5px;
-    border: 1px solid #ecf0f1;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -54,3 +53,27 @@
     transform: scale(1.1);
   }
   
+
+css
+Copy code
+.signup-login-toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.signup-login-toggle .signup-icon,
+.signup-login-toggle .login-icon {
+  margin-right: 8px;
+  font-size: 1.5rem;
+}
+
+.signup-login-toggle span {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #007bff; /* You can adjust the color as needed */
+}
+
+.signup-login-toggle:hover {
+  color: #0056b3; /* Add hover effect if desired */
+}

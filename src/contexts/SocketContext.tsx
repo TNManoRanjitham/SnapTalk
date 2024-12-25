@@ -14,6 +14,7 @@ interface SocketProviderProps {
 }
 
 export interface Message {
+  _id: string;
   content: string;
   sender: string;
   recipient: string;
@@ -26,11 +27,11 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   const [userId, setUserId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [socket, setSocket] = useState<any>(null);
-  const [deviceId, setDeviceId] = useState<string | null>(null);
+  //const [deviceId, setDeviceId] = useState<string | null>(null);
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
 
   const storedUserId = localStorage.getItem('userId');
-  const storedDeviceId = localStorage.getItem('deviceId');
+  //const storedDeviceId = localStorage.getItem('deviceId');
 
   useEffect(() => {
     if (storedUserId) {
@@ -39,19 +40,22 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     } else {
       console.warn('User ID not found in localStorage.');
     }
-    if (storedDeviceId) {
-      setDeviceId(storedDeviceId);
-    } else {
-      console.warn('Device ID not found in localStorage.');
-    }
-  }, [storedUserId, storedDeviceId]);
+    // if (storedDeviceId) {
+    //   setDeviceId(storedDeviceId);
+    // } else {
+    //   console.warn('Device ID not found in localStorage.');
+    // }
+  }, [storedUserId]);
 
   // Initialize socket connection when userId is available
   useEffect(() => {
-    if (!userId || !deviceId) return;
+    if (!userId) return;
 
     const socketInstance = io(process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001', {
-      query: { userId, deviceId },
+      query: { userId },
+      reconnection: true, // Enable automatic reconnection
+      reconnectionAttempts: 5, // Limit reconnection attempts
+      reconnectionDelay: 100, // Delay between attempts
     });
 
     if (socketInstance) {
@@ -59,7 +63,12 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
 
       socketInstance.on('receive_message', (message: Message) => {
         setMessages((prevMessages) => [...prevMessages, message]);
+        if (message.recipient === userId) {
+          console.log("Publish message_delivered to the backend");
+          socketInstance.emit('message_delivered', { messageId: message._id, userId });
+        }
       });
+
     }
 
     return () => {
@@ -67,12 +76,12 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
         socketInstance.disconnect();
       }
     };
-  }, [userId, deviceId, selectedUser]);
+  }, [userId, selectedUser]);
 
   const sendMessage = (message: string, recipient: string) => {
-    if (socket && deviceId) {
+    if (socket) {
       console.log(`*****Send Messages from ${userId} to ${recipient} *****`);
-      socket.emit('send_message', { content: message, sender: userId, recipient, deviceId });
+      socket.emit('send_message', { content: message, sender: userId, recipient });
     } else {
       console.error('Socket connection or deviceId not available.');
     }
