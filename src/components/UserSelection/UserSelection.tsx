@@ -31,7 +31,6 @@ const UserSelection: React.FC<UserSelectionProps> = ({ users, onSelectUser }) =>
 
    // When a user is selected, trigger the fetching of undelivered messages
    const handleUserSelect = (username: string) => {
-    socketContext.fetchUndeliveredMessages(username);
     onSelectUser(username);
   };
 

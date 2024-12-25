@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, ReactNode, useRef } from 'react';
 import io from 'socket.io-client';
 
 export interface SocketContextProps {
@@ -6,6 +6,7 @@ export interface SocketContextProps {
   fetchUndeliveredMessages: (recipient: string) => void; 
   messages: Message[];
   userId: string;
+  setSelectedUser: (user: string) => void;
 }
 
 interface SocketProviderProps {
@@ -26,6 +27,16 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [socket, setSocket] = useState<any>(null);
   const [deviceId, setDeviceId] = useState<string | null>(null);
+  const [selectedUser, setSelectedUser] = useState<string | null>(null);
+
+  console.log(selectedUser);
+ // Create a ref to always hold the latest selectedUser
+ const selectedUserRef = useRef<string | null>(selectedUser);
+
+ // Update the ref whenever selectedUser changes
+ useEffect(() => {
+   selectedUserRef.current = selectedUser;
+ }, [selectedUser]);
 
   // Retrieve userId from localStorage
   useEffect(() => {
@@ -56,7 +67,12 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
 
       socketInstance.on('receive_message', (message: Message) => {
         console.log(message);
+        console.log(selectedUserRef.current);
+        console.log(message.recipient);
+        console.log(message.sender);
+        if (selectedUser && (message.sender === selectedUser || message.recipient === selectedUser)) {
         setMessages((prevMessages) => [...prevMessages, message]);
+        }
       });
     }
 
@@ -65,7 +81,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
         socketInstance.disconnect();
       }
     };
-  }, [userId, deviceId]);
+  }, [userId, deviceId, selectedUser]);
 
   const sendMessage = (message: string, recipient: string) => {
     if (socket && deviceId) {
@@ -78,6 +94,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
    // Fetch undelivered messages for a selected user
    const fetchUndeliveredMessages = (recipient: string) => {
     if (socket && recipient) {
+      console.log("*****Fetch Undeleivered Messages");
       socket.emit('fetch_undelivered_messages', { recipient, loggedUserId: userId });
     } else {
       console.error('Socket connection or recipient not available.');
@@ -85,7 +102,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   };
 
   return (
-    <SocketContext.Provider value={{ sendMessage, fetchUndeliveredMessages, messages, userId: userId || '' }}>
+    <SocketContext.Provider value={{ sendMessage, fetchUndeliveredMessages, messages, userId: userId || '' , setSelectedUser}}>
       {children}
     </SocketContext.Provider>
   );

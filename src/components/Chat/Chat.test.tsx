@@ -20,6 +20,7 @@ describe('Chat Component', () => {
 
     render(
       <SocketContext.Provider value={{
+        setSelectedUser:jest.fn(),
         fetchUndeliveredMessages: jest.fn(),
         sendMessage: sendMessageMock,
         messages: [
@@ -60,6 +61,7 @@ describe('Chat Component', () => {
 
     render(
       <SocketContext.Provider value={{
+        setSelectedUser:jest.fn(),
         fetchUndeliveredMessages: jest.fn(),
         sendMessage: jest.fn(),
         messages,
@@ -79,6 +81,7 @@ describe('Chat Component', () => {
 
     render(
       <SocketContext.Provider value={{
+        setSelectedUser:jest.fn(),
         fetchUndeliveredMessages: jest.fn(),
         sendMessage: sendMessageMock,
         messages: [],
