@@ -6,7 +6,7 @@ import UserSelection from './components/UserSelection/UserSelection';
 import { getUsers } from './services/userService';
 import { AuthContext } from './contexts/AuthContext';
 import { SocketProvider } from './contexts/SocketContext';
-
+import Header from './components/Header/Header';
 
 const App = () => {
   const [users, setUsers] = useState<{ _id: string; username: string }[]>([]);
@@ -29,46 +29,54 @@ const App = () => {
   const handleSelectUser = (username: string) => {
     navigate(`/chat/${username}`); // Navigate to the selected user's chat
   };
-
   const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     if (!user) {
       return <Navigate to="/login" replace />;
     }
-
-    return <SocketProvider>{children}</SocketProvider>;
+    return <>{children}</>;
   };
 
   return (
-    <Routes>
-      {/* Redirect to /user if logged in, else to /login */}
-      <Route path="/" element={<Navigate to={user ? "/user" : "/login"} />} />
+    <SocketProvider>
+      <div id="root">
+        <Header />
+        <div className="main-container">
+          <Routes>
+            {/* Redirect to /user if logged in, else to /login */}
+            <Route path="/" element={<Navigate to={user ? "/user" : "/login"} />} />
 
-      <Route path="/login" element={<Login />} />
-      <Route
-        path="/user"
-        element={
-          user ? (
-            <ProtectedRoute>
-              <UserSelection users={users} onSelectUser={handleSelectUser} />
-            </ProtectedRoute>
-          ) : (
-            <Navigate to="/login" replace />
-          )
-        }
-      />
-      <Route
-        path="/chat/:username"
-        element={
-          user ? (
-            <ProtectedRoute>
-              <Chat />
-            </ProtectedRoute>
-          ) : (
-            <Navigate to="/login" replace />
-          )
-        }
-      />
-    </Routes>
+            <Route path="/login" element={<div className="page-content"><Login /></div>} />
+            <Route
+              path="/user"
+              element={
+                user ? (
+                  <ProtectedRoute>
+                    <div className="page-content">
+                      <UserSelection users={users} onSelectUser={handleSelectUser} />
+                    </div>
+                  </ProtectedRoute>
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+            <Route
+              path="/chat/:username"
+              element={
+                user ? (
+                  <ProtectedRoute>
+                    <div className="page-content"> <Chat /></div>
+
+                  </ProtectedRoute>
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+          </Routes>
+        </div>
+      </div>
+    </SocketProvider>
   );
 };
 

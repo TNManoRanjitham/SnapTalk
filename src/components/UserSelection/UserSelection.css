@@ -1,58 +1,104 @@
 /* General Styling for UserSelection */
 .user-selection-container {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    padding: 100px;
-    width: 100%;
-    max-width: 700px;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  /* Title */
-  .user-selection-container h2 {
-    font-size: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Title */
+.user-selection-container h1 {
+  font-size: 22px;
+  color: #333;
+  text-align: center;
+  font-weight: 600;
     color: #333;
     text-align: center;
+    margin-bottom: 20px; /* Add space below the title */
+    white-space: pre-wrap; /* Allow the title to wrap to the next line */
+    word-wrap: break-word; /* Ensure that long words are wrapped to the next line */
+    max-width: 90%;
+}
+
+/* User List */
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* User Button */
+.user-button {
+  padding: 12px;
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: left;
+  width: 100%;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Button Hover Effect */
+.user-button:hover {
+  background-color: #e0e0e0;
+  border-color: #bbb;
+}
+
+/* Active Button State */
+.user-button.active {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  border-color: #4CAF50;
+}
+
+/* Selected User Text */
+.selected-user {
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Scrollbar Styling */
+.user-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.user-list::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+.user-list::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .user-selection-container {
+      padding: 30px 20px;
   }
-  
-  /* User List */
-  .user-list {
-    flex-direction: column;
-    gap: 10px;
-    overflow-y: auto;
-    margin: '10px 0'
-  }
-  
+
   .user-button {
-    padding: 12px;
-    background-color: #f1f1f1;
-    color: #333;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 16px;
-    text-align: left;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    width: 100%;
+      font-size: 14px;
   }
-  
-  .user-button:hover {
-    background-color: #ddd;
+
+  .user-selection-container h1 {
+      font-size: 20px;
   }
-  
-  .user-button.active {
-    background-color: #4CAF50;
-    color: white;
-    font-weight: bold;
-    border-color: #4CAF50;
-  }
-  
-  /* Selected User Text */
-  .selected-user {
-    text-align: center;
-    font-size: 16px;
-    color: #333;
-  }
-  
+}

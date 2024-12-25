@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom'; // Assuming you're us
 import './Chat.css'; // Import your CSS file here
 import { AuthContext } from '../../contexts/AuthContext';
 import useChat from '../../hooks/useChat';
+import { FiArrowLeft } from 'react-icons/fi';
 
 const Chat: React.FC = () => {
   const { username } = useParams(); // Get the 'username' from the URL params
@@ -13,7 +14,7 @@ const Chat: React.FC = () => {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate(); // For navigation
   const [message, setMessage] = useState('');
-  const [recipient, setRecipient] = useState(username || '');
+  const [recipient] = useState(username || '');
 
   // Check if context is available
   if (!socketContext || !authContext) {
@@ -21,6 +22,13 @@ const Chat: React.FC = () => {
   }
 
   const { sendMessage, messages, userId } = socketContext;
+
+  // Filter messages specific to the current chat
+  const filteredMessages = messages.filter(
+    (msg) =>
+      (msg.sender === userId && msg.recipient === recipient) ||
+      (msg.sender === recipient && msg.recipient === userId)
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,20 +44,10 @@ const Chat: React.FC = () => {
 
   return (
     <div className="chat-container">
-      <div className="chat-header">
+       <div className="chat-header">
         <h2>Chat with {recipient}</h2>
-        <button onClick={handleLogout} className="logout-button">
-          Back
-        </button>
+        <FiArrowLeft className="back-icon" onClick={handleLogout} title="Back" />
       </div>
-
-      <input
-        type="text"
-        placeholder="Recipient"
-        value={recipient}
-        onChange={(e) => setRecipient(e.target.value)}
-        disabled // Disable the recipient input since it's taken from the URL
-      />
       <textarea
         placeholder="Type a message..."
         value={message}
@@ -62,8 +60,8 @@ const Chat: React.FC = () => {
         Send
       </button>
 
-      <div className={messages.length === 0 ? 'no-messages' : 'messages'}>
-        {messages.map((msg, index) => (
+      <div className={filteredMessages.length === 0 ? 'no-messages' : 'messages'}>
+        {filteredMessages.map((msg, index) => (
           <p
             key={index}
             className={msg.sender === userId ? 'sent' : 'received'} // Apply conditional classes based on sender

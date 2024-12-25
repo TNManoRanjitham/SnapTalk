@@ -51,6 +51,17 @@ textarea {
   margin-bottom: 15px;
 }
 
+.back-icon {
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.back-icon:hover {
+  color: #007bff;
+}
+
 /* Button Styling */
 button {
   padding: 12px;
