@@ -2,6 +2,12 @@
 
 This application is built using React with TypeScript, leveraging the modern JSX transform for optimized performance. It includes a functional chat interface powered by a Socket Context for real-time message communication.
 
+## Demo Video
+
+[![Demo Video](https://img.youtube.com/vi/r4VcDympGE0/0.jpg)](https://www.youtube.com/watch?v=r4VcDympGE0)
+
+Click the image to watch the demo video.
+
 ## Features
 - **TypeScript Integration:** Ensures type safety and a better developer experience.
 - **Real-Time Messaging:** Utilizes context-based socket integration for dynamic communication.
