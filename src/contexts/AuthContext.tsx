@@ -28,12 +28,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
 
-  // Handle login logic
   const handleLogin = async (username: string, password: string) => {
     try {
-      const deviceId = localStorage.getItem('deviceId') || ''; // Fetch or generate deviceId
+      const deviceId = localStorage.getItem('deviceId') || ''; 
       const deviceType = getDeviceType();
-      console.log(deviceType);
 
       const response = await login(username, password, deviceId , deviceType);
       if (response && response.message) {
@@ -55,10 +53,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
 
-  // Handle logout logic
   const handleLogout = async () => {
     try {
-      localStorage.removeItem('userId');  // Clear user ID from localStorage
+      localStorage.removeItem('userId');
       localStorage.removeItem('token'); 
       setUser(null);
     } catch (error) {

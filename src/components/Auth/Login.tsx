@@ -1,13 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { AuthContext } from '../../contexts/AuthContext';  // Access the AuthContext
-import './Login.css'; // Import CSS for styling
+import { AuthContext } from '../../contexts/AuthContext';
+import './Login.css'; 
 import useRedirectIfLoggedIn from '../../hooks/useRedirectIfLoggedIn';
 
 const Login: React.FC = () => {
   useRedirectIfLoggedIn(); 
 
-  // Always call hooks at the top of the component
   const authContext = useContext(AuthContext)!;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -25,12 +24,10 @@ const Login: React.FC = () => {
     setError(''); // Reset error on new submit attempt
     try {
       if (isSignup) {
-        // Handle signup
-        await authContext.handleSignup(username, password); // Assuming handleSignup method is implemented
+        await authContext.handleSignup(username, password);
         isSignup = false;
         navigate('/login');
       } else {
-        // Handle login
         await authContext.handleLogin(username, password);
         navigate('/user');
       }
@@ -69,7 +66,7 @@ const Login: React.FC = () => {
         <button
           type="button"
           className="login-button"
-          onClick={handleAuth}  // Trigger login on button click
+          onClick={handleAuth}
         >
          {isSignup ? 'Sign Up' : 'Login'}
         </button>

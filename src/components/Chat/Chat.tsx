@@ -1,29 +1,27 @@
 import React, { useState, useContext } from 'react';
 import { SocketContext } from '../../contexts/SocketContext';
-import { useParams, useNavigate } from 'react-router-dom'; // Assuming you're using react-router
-import './Chat.css'; // Import your CSS file here
+import { useParams, useNavigate } from 'react-router-dom'; 
+import './Chat.css';
 import { AuthContext } from '../../contexts/AuthContext';
 import useChat from '../../hooks/useChat';
 import { FiArrowLeft } from 'react-icons/fi';
 
 const Chat: React.FC = () => {
-  const { username } = useParams(); // Get the 'username' from the URL params
+  const { username } = useParams(); 
   
   const socketContext = useContext(SocketContext);
   useChat(username, socketContext);
   const authContext = useContext(AuthContext);
-  const navigate = useNavigate(); // For navigation
+  const navigate = useNavigate(); 
   const [message, setMessage] = useState('');
   const [recipient] = useState(username || '');
 
-  // Check if context is available
   if (!socketContext || !authContext) {
     return <p>Loading...</p>;
   }
 
   const { sendMessage, messages, userId } = socketContext;
 
-  // Filter messages specific to the current chat
   const filteredMessages = messages.filter(
     (msg) =>
       (msg.sender === userId && msg.recipient === recipient) ||
@@ -34,12 +32,12 @@ const Chat: React.FC = () => {
     e.preventDefault();
     if (message.trim() && recipient.trim()) {
       sendMessage(message.trim(), recipient.trim());
-      setMessage(''); // Clear the input after sending
+      setMessage('');
     }
   };
 
   const handleLogout = () => {
-    navigate('/user'); // Redirect to login page
+    navigate('/user'); 
   };
 
   return (
@@ -64,7 +62,7 @@ const Chat: React.FC = () => {
         {filteredMessages.map((msg, index) => (
           <p
             key={index}
-            className={msg.sender === userId ? 'sent' : 'received'} // Apply conditional classes based on sender
+            className={msg.sender === userId ? 'sent' : 'received'}
           >
             <strong>{msg.sender === userId ? 'You' : msg.sender}:</strong> {msg.content}
           </p>

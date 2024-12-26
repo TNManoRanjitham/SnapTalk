@@ -1,6 +1,6 @@
 // hooks/useRedirectIfLoggedIn.ts
 import { useContext, useEffect } from 'react';
-import { AuthContext } from '../contexts/AuthContext'; // Assuming you have AuthContext
+import { AuthContext } from '../contexts/AuthContext'; 
 import { useNavigate } from 'react-router-dom';
 
 const useRedirectIfLoggedIn = () => {

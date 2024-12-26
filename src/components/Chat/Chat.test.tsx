@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { SocketContext, Message } from '../../contexts/SocketContext'; // Import context and types
-import Chat from './Chat'; // Import the Chat component
+import Chat from './Chat';
 
 // Mocking SocketContext
 jest.doMock('../contexts/SocketContext', () => ({
@@ -32,10 +32,8 @@ describe('Chat Component', () => {
       </SocketContext.Provider>
     );
 
-    // Check if the initial message is rendered
     expect(screen.getByText('Hello')).toBeInTheDocument();
 
-    // Simulate typing a message
     fireEvent.change(screen.getByPlaceholderText('Recipient'), {
       target: { value: 'user2' },
     });
@@ -43,13 +41,10 @@ describe('Chat Component', () => {
       target: { value: 'How are you?' },
     });
 
-    // Simulate clicking the "Send" button
     fireEvent.click(screen.getByText('Send'));
 
-    // Wait for DOM update after sendMessage function is called
     await waitFor(() => expect(sendMessageMock).toHaveBeenCalledWith('How are you?', 'user2'));
 
-    // Check if message input was cleared
     expect(screen.getByPlaceholderText('Type a message...')).toHaveValue('');
   });
 
@@ -91,14 +86,11 @@ describe('Chat Component', () => {
       </SocketContext.Provider>
     );
 
-    // Simulate empty inputs (no recipient and no message)
     fireEvent.change(screen.getByPlaceholderText('Recipient'), { target: { value: '' } });
     fireEvent.change(screen.getByPlaceholderText('Type a message...'), { target: { value: '' } });
     
-    // Click the "Send" button
     fireEvent.click(screen.getByText('Send'));
 
-    // Ensure sendMessage is NOT called with empty values
     expect(sendMessageMock).not.toHaveBeenCalled();
   });
 });

@@ -15,7 +15,6 @@ interface UserSelectionProps {
 const UserSelection: React.FC<UserSelectionProps> = ({ users, onSelectUser }) => {
   const authContext = useContext(AuthContext);
 
-  // Check if context is available
   if (!authContext) {
     return <p>Loading...</p>;
   }

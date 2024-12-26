@@ -17,7 +17,7 @@ export const getUsers = async () => {
             throw new Error('User not logged in');
         }
         const response = await axios.get(`${API_URL}`, {
-            params: { userId: userId }, // Send userId as a query parameter
+            params: { userId: userId },
              headers: { Authorization: `Bearer ${userToken}` },
         });
         return response.data;

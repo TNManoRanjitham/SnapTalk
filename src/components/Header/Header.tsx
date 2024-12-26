@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { FaSignOutAlt , FaUserPlus, FaSignInAlt} from 'react-icons/fa';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import './Header.css'; // Assuming CSS file for styling
+import './Header.css';
 
 const Header = () => {
   const authContext = useContext(AuthContext);
@@ -13,9 +13,9 @@ const Header = () => {
 
   const handleLogout = () => {
     if (logout) {
-      logout(); // Perform logout action
+      logout(); 
     }
-    navigate('/login'); // Redirect to login page
+    navigate('/login');
   };
 
   const handleSignupToggle = () => {

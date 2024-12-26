@@ -62,7 +62,6 @@ textarea {
   color: #007bff;
 }
 
-/* Button Styling */
 button {
   padding: 12px;
   background-color: #4CAF50;
@@ -140,9 +139,9 @@ div.messages {
 
 /* When there are no messages, hide the border and padding */
 .no-messages {
-  border: none;   /* Remove border */
-  padding: 0;      /* Remove padding */
-  background-color: transparent;  /* Make background transparent */
+  border: none;  
+  padding: 0;   
+  background-color: transparent;
 }
 
 /* Header Styling */

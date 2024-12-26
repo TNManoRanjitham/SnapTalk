@@ -14,11 +14,10 @@ describe('App Component', () => {
       </SocketProvider>
     );
 
-    // Check if the SnapTalk header is rendered
+  
     const headerElement = screen.getByText(/SnapTalk/i);
     expect(headerElement).toBeInTheDocument();
 
-    // Check if the mocked Chat component is rendered
     const chatComponent = screen.getByText(/Mocked Chat Component/i);
     expect(chatComponent).toBeInTheDocument();
   });
@@ -30,7 +29,6 @@ describe('App Component', () => {
       </SocketProvider>
     );
 
-    // Make sure that the SocketProvider context is being passed down
     const chatComponent = screen.getByText(/Mocked Chat Component/i);
     expect(chatComponent).toBeInTheDocument();
   });
